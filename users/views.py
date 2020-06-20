@@ -1,17 +1,21 @@
-from django.shortcuts import render, redirect
-from django.contrib import auth
-from .forms import UserForm
+from django.shortcuts import render, redirect, reverse
+from django.contrib import auth, messages
+from users.forms import UserForm
 from django.http import HttpResponse
+from users.models import User
 
 # Create your views here.
 def signup(request):
     if request.method == "POST":
         user_form = UserForm(request.POST)
         if user_form.is_valid():
-            user_form.save()
+            new_user = User.objects.create_user(**user_form.cleaned_data)
+            new_user.save()
             return redirect("login")
-    user_form = UserForm()
-    return render(request, "signup.html", {"user_form": user_form})
+
+    else:
+        user_form = UserForm()
+        return render(request, "users/signup.html", {"user_form": user_form})
 
 
 def login(request):
@@ -22,16 +26,17 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect("index")
         else:
-            return render(
-                request, "login.html", {"error": "username or password is incorrect."}
+            messages.add_message(
+                request, messages.ERROR, "Username or password is incorrect."
             )
+
+        return redirect(reverse("index"))
     else:
-        return render(request, "login.html")
+        return render(request, "core/index.html")
 
 
 def logout(request):
     auth.logout(request)
-    return redirect("index")
+    return redirect(reverse("index"))
 
