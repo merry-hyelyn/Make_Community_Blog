@@ -4,6 +4,7 @@ from users.forms import UserForm
 from django.http import HttpResponse
 from users.models import User
 
+
 # Create your views here.
 def signup(request):
     if request.method == "POST":
@@ -11,7 +12,7 @@ def signup(request):
         if user_form.is_valid():
             new_user = User.objects.create_user(**user_form.cleaned_data)
             new_user.save()
-            return redirect("login")
+        return redirect("login")
 
     else:
         user_form = UserForm()
@@ -27,9 +28,8 @@ def login(request):
         if user is not None:
             auth.login(request, user)
         else:
-            messages.add_message(
-                request, messages.ERROR, "Username or password is incorrect."
-            )
+            messages.add_message(request, messages.ERROR,
+                                 "Username or password is incorrect.")
 
         return redirect(reverse("index"))
     else:
@@ -39,4 +39,3 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect(reverse("index"))
-
