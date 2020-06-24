@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block page-name %}SIGN UP{% endblock page-name %}
+
+{% block content %}
+새 게시글 작성 해라!
+
+<form action= "{% url 'new_post' %}" method="POST">
+{% csrf_token %}
+{{ post.as_p }}
+{{ user.step }}
+
+<button type="submit">게시글 등록</button>
+<button><a href = {% url 'index' %}>취소</a></button>
+</form>
+{% endblock content %}

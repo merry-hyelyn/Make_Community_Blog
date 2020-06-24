@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+{% block page-name %}DETAIL{% endblock page-name %}
+{% block content %}
+<h1>detail</h1>
+{% csrf_token %}
+제목 : {{ post.title }}<br>
+작성자 : {{ post.user }}<br>
+내용 : {{ post.content }}<br>
+
+
+<script type="text/javascript">
+function checkPermission(post,user){
+    if(post !== user){
+        confirm("작성자가 아니기 때문에 수정할 수 없습니다.")
+        return false;
+    }
+    return true;
+}
+</script>
+
+<a href={% url 'update' post.id %} 
+onclick="return checkPermission('{{post.user}}','{{user}}');"
+class="text-6xl">🖌</a>
+{% if user.is_staff or user.if_superuser %}
+
+<a href="{% url 'delete' post.id%}" 
+onclick="return confirm('정말 삭제하시겠습니까?')"><button>delete</a></button>
+{% endif %}
+{% endblock content %}

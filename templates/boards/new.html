@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block page-name %}SIGN UP{% endblock page-name %}
+
+{% block content %}
+
+<form action="{% url 'new'%}" method="POST">
+{% csrf_token %}
+{{ board_form.as_p }}
+게시판 생성자 : {{ user }}
+<br>
+
+<button type = "submit">추가</button>
+<button type="submit">
+<a href="{% url 'index' %}">취소</a></button></form>
+{% endblock content %}

@@ -7,9 +7,13 @@ verify_ssl = true
 black = "*"
 flake8 = "*"
 pylint = "*"
+yapf = "*"
 
 [packages]
 django = "*"
 
 [requires]
 python_version = "3.6"
+
+[pipenv]
+allow_prereleases = true

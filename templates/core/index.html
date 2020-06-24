@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block page-name %}INDEX{% endblock page-name %}
+{% block content %}
+{% csrf_token %}
+<div class="container">
+<h1 class=" text-xl text-yellow-400 hover:text-green-500 transition-all duration-200 md:text-red-500">index</h1>
+
+{% if user.is_authenticated %}
+{{ user }}님 안녕하세요
+<a href={% url 'logout'%}>Logout</a>
+
+<nav>
+{% for board in boards %}
+    <a href={% url 'index' board.path %}>{{ board.name }}</a>
+{% endfor %}
+
+{% if user.is_staff or user.is_superuser %}
+    <a href="{% url 'new'%}">✚</a>
+{% endif %}
+</nav>
+<script type="text/javascript">
+    function checkStep(step){
+        console.log("come in")
+        if (step === "one"){
+            confirm("멤버 단계 1은 글 읽기만 가능합니다.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+{{ user.step }}
+<a href = {% url 'new_post' %} class="text-4xl" 
+onclick="return checkStep('{{user.step}}');">📝</a></button><br>
+{% csrf_token %}
+{% for post in posts %}
+title : {{ post.title }}<br>
+content : {{ post.content }}
+{{ post.id }}
+<a href={% url 'detail_post' post.id %}>자세히 보기</a>
+<br><br>
+{% endfor %}
+<button>
+
+</div>
+
+{% else%}
+<form method="POST" action="{% url 'login' %}">
+{% csrf_token %}
+아이디(username):
+<br>
+<input id="username" name="username" type="text" value="">
+<br>
+비밀번호(password):
+<br>
+<input type="password" id="pwd" name="pwd" value="">
+<br>
+<input type="submit" value="Log in">
+</form>
+<a href="{% url 'signup'%}">Sign Up</a>
+
+{% if messages %}
+<script>
+{% for message in messages %}
+alert("{{message}}");
+{% endfor %}
+</script>
+{% endif %}
+
+{% endif %}
+
+{% endblock content %}

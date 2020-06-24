@@ -12,8 +12,7 @@ def new(request):
             board = board_form.save(commit=False)
             board.create_user = request.user
             board.save()
-
-        return redirect('index')
+            return redirect('index')
 
     else:
         board_form = BoardForm()

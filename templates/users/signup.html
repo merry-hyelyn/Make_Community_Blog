@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block page-name %}SIGN UP{% endblock page-name %}
+
+{% block content %}
+<h1 class="text-3xl">sign up</h1>
+
+{% if user.is_authenticated %}
+<script type="text/javascript">
+    alert('잘못된 접근입니다. \n 회원가입을 위해서는 로그아웃이 필요합니다.')
+    window.location.href='index/'
+    </script>
+
+{% else %}
+<form method="POST" action="{% url 'signup'%}">
+    {% csrf_token %}
+    {{ user_form.as_p}}
+    <br>
+    <button type="submit">Sign Up</button>
+    <a href = {% url 'index' %}>
+    <button type="button">취소</button></a>
+</form>
+{% endif %}
+{% endblock content %}
