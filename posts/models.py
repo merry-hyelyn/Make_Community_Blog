@@ -10,6 +10,7 @@ class Post(AbstractTimeStamp):
     content = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
+    secret = models.CharField(max_length=15, blank=True)
 
     def __str__(self):
         return self.title
