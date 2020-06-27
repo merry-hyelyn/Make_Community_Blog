@@ -8,3 +8,17 @@ class PostForm(forms.ModelForm):
         exclude = [
             'user',
         ]
+
+        field = [
+            "title",
+            "content",
+            "board",
+            "secret",
+        ]
+
+        label = {
+            "title": "제목",
+            "content": "내용",
+            "board": "게시판",
+            "secret": "비밀글",
+        }

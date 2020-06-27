@@ -10,13 +10,17 @@ class UserForm(forms.ModelForm):
             "email",
             "password",
         ]
-        
-        widget = {
-            "username": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": "15자 이내로 입력 가능합니다."}
-            ),
-            "email": forms.EmailInput(attrs={"class": "form-control"}),
-            "password": forms.PasswordInput(attrs={"class": "form-control"}),
+
+        widgets = {
+            "username":
+            forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "15자 이내로 입력"
+            }),
+            "email":
+            forms.EmailInput(attrs={"class": "form-control"}),
+            "password":
+            forms.PasswordInput(attrs={"class": "form-control"}),
         }
 
         label = {

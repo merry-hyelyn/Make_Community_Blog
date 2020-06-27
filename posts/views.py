@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth.decorators import user_passes_test
 from posts.forms import PostForm
 from posts.models import Post
@@ -14,22 +14,28 @@ def new_post(request):
             post.save()
             return redirect('index')
     else:
-        post = PostForm()
+        post_form = PostForm()
         return render(request, 'posts/new_post.html', {
-            'post': post,
+            'post_form': post_form,
             'user': request.user,
         })
 
 
 def detail_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    return render(request, 'posts/detail_post.html', {'post': post})
+    if post.secret == "true":
+        if post.user == request.user or request.user.is_staff or request.user.is_superuser:
+            return render(request, 'posts/detail_post.html', {'post': post})
+
+        else:
+            return redirect(reverse("index"))
+    else:
+        return render(request, 'posts/detail_post.html', {'post': post})
 
 
 def update(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     post_form = PostForm(request.POST, instance=post)
-
     if request.method == "POST":
         if post_form.is_valid():
             post_form.save()
