@@ -98,7 +98,8 @@ onclick="return checkSecret('{{post.user}}','{{post.secret}}');">
 {% else%}
 <div class="text-center text-2xl text-blue-900 font-bold mb-6">Log In</div><br><br>
 <div class="w-full flex item-center justify-center">
-<form method="POST" action="{% url 'login' %}" class="inline-block px-32 py-10 border-solid border-4 border-gray-800 text-center shadow-2xl">
+<form method="POST" action="{% url 'login' %}">
+<div class="inline-block px-32 py-10 border-solid border-4 border-gray-800 text-center shadow-2xl">
 {% csrf_token %}
 아이디(username):
 <br>
@@ -111,9 +112,11 @@ class = "bg-white focus:outline-none focus:shadow-outline border border-gray-300
 class = "bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal">
 <br>
 <button type="submit" class="bg-blue-900 text-white hover:bg-green-600 font-bold py-2 px-4 rounded-full">Sign In</button>
+</form>
+
 <button class="text-blue-900 hover:text-green-600 font-bold py-2 px-4 rounded-full"><a href="{% url 'signup'%}">Sign Up</a></button>
 </div>
-</div></form>
+</div></div>
 {% if messages %}
 <script>
 {% for message in messages %}

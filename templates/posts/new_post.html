@@ -23,13 +23,16 @@
 <div class="inline-block bg-red-400">
 {{post_form.board}}</div><br><br>
 
-<div class="inline px-2">{{post_form.secret.label_tag}}</div>
+<div class="inline px- text-2xl pl-1">🔒</div>
 <div class="inline-block bg-red-400">
-{{post_form.secret}}</div><br><br>
+{{post_form.secret}}</div><br>
+<div class="text-red-700 text-sm">* 비밀글 설정 시 true로 바꿔주세요!</div><br>
 
 <button type="submit"
-class="bg-blue-900 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">게시글 등록</button>
-<button class="text-blue-900 hover:text-green-600 font-bold py-2 px-4 rounded-full"><a href = {% url 'index' %}>취소</a></button>
-</form>
+class="whitespace-no-wrap bg-blue-900 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full">ADD</button>
+</form><br>
+<a href = {% url 'index' %}
+class="whitespace-no-wrap text-blue-900 hover:text-red-600 font-bold py-2 px-4 rounded-full">cancel</a>
+
 </div></div>
 {% endblock content %}

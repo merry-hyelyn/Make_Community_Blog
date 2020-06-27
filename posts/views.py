@@ -34,12 +34,13 @@ def detail_post(request, post_id):
 
 
 def update(request, post_id):
+    re_url = 'posts/detail_post/' + str(post_id)
     post = get_object_or_404(Post, pk=post_id)
     post_form = PostForm(request.POST, instance=post)
     if request.method == "POST":
         if post_form.is_valid():
             post_form.save()
-            return redirect(request.path)
+            return redirect('/' + re_url)
     else:
         return render(request, 'posts/update_post.html', {
             'post_form': post_form,
