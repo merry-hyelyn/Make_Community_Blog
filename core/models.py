@@ -1,7 +1,7 @@
 from django.db import models
 
 
-# 추상 클래스 -> 상속만 
+# 추상 클래스 -> 상속만
 class AbstractTimeStamp(models.Model):
     """Abstract TimeStamp Model
     Inherit:

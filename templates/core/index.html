@@ -15,19 +15,22 @@
     }
 
     function checkSecret(pUser, secret){
-        console.log("dkdkdkkd")
-        if('{{user.is_superuser}}' === 'True'){
-            return true;
-        }
         if (secret === "true"){
             if('{{user}}' === pUser ||
                 '{{user.is_superuser}}' === 'True' ||
                 '{{user.is_staff}}' === 'True'){
                 return true;
             }
+
+            else{
+                alert("이 글은 비밀글입니다. \n 관리자와 작성자만 확인 가능합니다.");
+                return false;
+            }
         }
-        alert("이 글은 비밀글입니다. \n 관리자와 작성자만 확인 가능합니다.");
-        return false;
+
+        else{
+            return true;
+        }
     }
 </script>
 

@@ -26,9 +26,9 @@ function checkPermission(post,user){
 <a href={% url 'update' post.id %} 
 onclick="return checkPermission('{{post.user}}','{{user}}');"
 class="text-3xl">🖌</a>
+<a href="{% url 'index' %}"><button class="bg-blue-900 text-white hover:bg-green-600 font-bold py-2 px-4 rounded-full">home</button></a>
 {% if user.is_staff or user.if_superuser %}
 
-<a href="{% url 'index' %}"><button class="bg-blue-900 text-white hover:bg-green-600 font-bold py-2 px-4 rounded-full">home</button></a>
 <a href="{% url 'delete' post.id%}" 
 onclick="return confirm('정말 삭제하시겠습니까?')"
 class="bg-red-600 text-white hover:bg-red-400 font-bold py-2 px-4 rounded-full">
