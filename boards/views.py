@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from boards.forms import BoardForm
 
 
-#@user_passes_test(lambda u: u.is_staff or u.is_superuser, login_url="index")
+@user_passes_test(lambda u: u.is_staff or u.is_superuser, login_url="index")
 def new(request):
     if request.method == "POST":
         board_form = BoardForm(request.POST)
