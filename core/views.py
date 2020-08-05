@@ -1,19 +1,23 @@
-from django.shortcuts import render
 from boards.models import Board
 from posts.models import Post
+from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from django.core.paginator import Paginator
 
 
-def index(request, path=None):
-    boards = Board.objects.all()
-    posts = None
+class IndexView(TemplateView):
+    template_name = "core/index.html"
+    success_url = reverse_lazy("home")
 
-    if not path:
-        path = "main"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['board_list'] = Board.objects.all()
 
-    else:
-        posts = Post.objects.filter(board__path=path)
-
-    return render(
-        request, "core/index.html", {"boards": boards, "path": path, "posts": posts}
-    )
-
+        path = kwargs.get('path', '')
+        posts_list = Post.objects.filter(board__path=path)
+        pagination = Paginator(posts_list, 6)
+        page = self.request.GET.get('page')
+        print('kwargs', kwargs, pagination)
+        posts = pagination.get_page(page)
+        context['post_list'] = posts
+        return context
