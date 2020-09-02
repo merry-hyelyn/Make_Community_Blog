@@ -1,17 +1,25 @@
 {% extends 'base.html' %}
 {% block page-name %}LOG IN{% endblock page-name %}
 {% block content %}
-<h1>log in</h1>
-<form method="POST" action="{% url 'login' %}">
-{% csrf_token %}
-아이디(username):
-<br>
-<input id="username" name="username" type="text" value="">
-<br>
-비밀번호(password):
-<br>
-<input type="password" id="pwd" name="pwd" value="">
-<br>
-<input type="submit" value="Log in">
-</form>
+
+<h2 class="text-center">Log In</h2><br>
+<div class="border w-25 p-3 mx-auto">
+    <form method="POST" action="{% url 'login' %}" style="display:inline;">
+        {% csrf_token %}
+        아이디(username): <br>
+        {{ form.username }} <br><br>
+
+        비밀번호(password): <br>
+        {{ form.password}}<br><bt>
+
+        {% if form.errors %}
+            {{ form.errors.as_p }}
+        {% endif %}
+        
+        <br><br>
+        <button type="submit" class="btn btn-outline-success">Sign In</button>
+        <button type="button" class="btn btn-outline-warning">
+        <a href = {% url 'home' %}>cancel</button></a>
+    </form>
+</div>
 {% endblock content %}
